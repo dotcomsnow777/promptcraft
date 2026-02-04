@@ -4,9 +4,7 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "NEXT_PUBLIC_OPENAI_API_KEY": {
-      "description": "Your OpenAI API key for Claude API access"
-    },
+
     "NEXT_PUBLIC_APP_URL": {
       "description": "The production URL of your application",
       "default": "https://promptcraft.vercel.app"
