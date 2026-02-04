@@ -1,0 +1,46 @@
+{
+  "name": "prompter1",
+  "version": "0.1.0",
+  "description": "PromptCraft - AI Prompt Engineering Tool powered by OpenAI",
+  "author": "Your Name",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.36.10",
+    "@types/stripe": "^8.0.416",
+    "axios": "^1.13.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
+    "lucide-react": "^0.563.0",
+    "next": "16.1.5",
+    "openai": "^6.16.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-hot-toast": "^2.6.0",
+    "recharts": "^3.7.0",
+    "stripe": "^20.2.0",
+    "zod": "^4.3.6",
+    "zustand": "^5.0.10"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.19.2",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.5",
+    "prisma": "^6.19.2",
+    "shadcn-ui": "^0.9.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

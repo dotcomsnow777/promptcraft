@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  Int      @id @default(autoincrement())
+  clerkId             String   @unique
+  email               String?
+  plan                String   @default("free")
+  credits             Int      @default(5)
+  stripeCustomerId    String?  @unique
+  stripeSubscriptionId String?
+  currentPeriodEnd    DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  promptUsages        PromptUsage[]
+}
+
+model PromptUsage {
+  id             Int      @id @default(autoincrement())
+  user           User?    @relation(fields: [userId], references: [id])
+  userId         Int?
+  originalPrompt String
+  improvedPrompt String
+  model          String
+  score          Int?
+  createdAt      DateTime @default(now())
+}
