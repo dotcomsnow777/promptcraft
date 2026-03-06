@@ -5,7 +5,7 @@ import { currentUser } from '@clerk/nextjs/server';
 
 export async function POST(request: NextRequest) {
   let priceId: string | undefined;
-  let domain: string;
+  let domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   try {
     const body = await request.json();
@@ -18,8 +18,6 @@ export async function POST(request: NextRequest) {
     // resolve current Clerk user (server-side)
     const user = await currentUser();
     const clerkId = user?.id;
-
-    domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
     // try to reuse existing Stripe customer linked to the Clerk user
     let stripeCustomerId: string | undefined;
