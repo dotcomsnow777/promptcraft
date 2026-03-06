@@ -53,7 +53,22 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    console.error('Stripe checkout error:', err);
-    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error('Stripe checkout error:', errorMessage);
+    console.error('Full error:', err);
+
+    // Debug logging for environment variables (safe)
+    const hasSecretKey = !!process.env.STRIPE_SECRET_KEY;
+    const secretKeyLength = process.env.STRIPE_SECRET_KEY?.length || 0;
+    const priceIdLog = priceId || 'undefined';
+
+    console.log(`[Debug] Stripe Secret Key present: ${hasSecretKey} (Length: ${secretKeyLength})`);
+    console.log(`[Debug] Price ID received: ${priceIdLog}`);
+    console.log(`[Debug] App URL (Domain): ${domain}`);
+
+    return NextResponse.json({
+      error: errorMessage || 'Failed to create checkout session',
+      debug: { hasSecretKey, priceIdProvided: !!priceId }
+    }, { status: 500 });
   }
 }

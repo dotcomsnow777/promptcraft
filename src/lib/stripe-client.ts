@@ -1,15 +1,19 @@
 export async function createCheckout(priceId: string) {
+  console.log('[Stripe] Creating checkout with price ID:', priceId);
+  
   const res = await fetch('/api/stripe/checkout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ priceId }),
   });
 
+  const responseData = await res.json();
+  
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: 'Unknown error' }));
-    throw new Error(err.error || 'Failed to create checkout session');
+    console.error('[Stripe] Checkout failed:', responseData);
+    throw new Error(responseData.error || `Checkout failed: ${res.status}`);
   }
 
-  const data = await res.json();
-  return data.url as string;
+  console.log('[Stripe] Checkout session created successfully');
+  return responseData.url as string;
 }

@@ -123,11 +123,16 @@ export default function Home() {
                 variant="primary"
                 onClick={async () => {
                   try {
-                    const url = await createCheckout(process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_ID as string);
+                    const priceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_ID;
+                    if (!priceId) {
+                      throw new Error('NEXT_PUBLIC_STRIPE_PRICE_PRO_ID is missing. Please add it to your .env.local or Vercel environment variables.');
+                    }
+                    const url = await createCheckout(priceId);
                     if (url) window.location.href = url;
                   } catch (err) {
                     console.error(err);
-                    alert('Failed to start checkout. Ensure Stripe keys are configured.');
+                    const message = err instanceof Error ? err.message : 'Failed to start checkout';
+                    alert(`Error: ${message}`);
                   }
                 }}
               >

@@ -177,8 +177,13 @@ Or use GitHub integration:
 
 Add these in Vercel dashboard:
 ```
-NEXT_PUBLIC_OPENAI_API_KEY=your_key_here
 NEXT_PUBLIC_APP_URL=your_deployed_url
+NEXT_PUBLIC_STRIPE_PRICE_PRO_ID=price_...
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_... (optional, if using webhooks)
+
+> **IMPORTANT**: After adding these variables, you must **Redeploy** your application in Vercel for them to take effect.
+> Go to Deployments -> ... -> Redeploy.
 ```
 
 ## 📊 Performance
