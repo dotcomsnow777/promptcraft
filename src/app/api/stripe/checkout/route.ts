@@ -4,9 +4,12 @@ import prisma from '@/lib/db';
 import { currentUser } from '@clerk/nextjs/server';
 
 export async function POST(request: NextRequest) {
+  let priceId: string | undefined;
+  let domain: string;
+
   try {
     const body = await request.json();
-    const { priceId } = body;
+    priceId = body.priceId;
 
     if (!priceId) {
       return NextResponse.json({ error: 'Missing priceId' }, { status: 400 });
@@ -16,7 +19,7 @@ export async function POST(request: NextRequest) {
     const user = await currentUser();
     const clerkId = user?.id;
 
-    const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
     // try to reuse existing Stripe customer linked to the Clerk user
     let stripeCustomerId: string | undefined;
